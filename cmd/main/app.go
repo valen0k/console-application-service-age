@@ -15,14 +15,14 @@ import (
 )
 
 func main() {
-	if len(os.Args) != 3 {
-		log.Fatalln("to launch the application, you need 2 parameters (-host, -port)")
+	if len(os.Args) != 5 || os.Args[1] != "-host" || os.Args[3] != "-port" {
+		log.Fatalln("to launch the application, you need 4 parameters (-host <host> -port <port>)")
 	}
 
 	log.Println("create router")
 	router := httprouter.New()
 
-	newClient := redis.NewClient(os.Args[1], os.Args[2])
+	newClient := redis.NewClient(os.Args[2], os.Args[4])
 	defer newClient.Close()
 
 	repository := db.NewRepository(newClient)

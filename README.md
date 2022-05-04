@@ -73,6 +73,6 @@
 Start service:
 
 ```shell
-go run cmd/main/app.go -host -port
+go run cmd/main/app.go -host <host> -port <port>
 go run cmd/main/multiplicationApp.go
 ```

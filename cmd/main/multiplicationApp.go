@@ -8,8 +8,13 @@ import (
 	"strings"
 )
 
+const (
+	network = "tcp"
+	address = ":8081"
+)
+
 func main() {
-	listen, err := net.Listen("tcp", ":8081")
+	listen, err := net.Listen(network, address)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -20,7 +25,6 @@ func main() {
 		conn, err := listen.Accept()
 		if err != nil {
 			log.Println(err)
-			conn.Close()
 			continue
 		}
 		go handleConnection(conn)
@@ -33,7 +37,7 @@ func handleConnection(conn net.Conn) {
 	input := make([]byte, 1024*4)
 
 	n, err := conn.Read(input)
-	if err != nil || n == 0 {
+	if err != nil {
 		log.Println("Read error:", err)
 		return
 	}
